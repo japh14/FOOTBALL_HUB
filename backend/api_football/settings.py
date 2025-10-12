@@ -72,6 +72,14 @@ DEBUG = _DEBUG
 
 ALLOWED_HOSTS = _ALLOWED_HOSTS
 
+# --- CORS Configuration ---
+
+# Define the origins (URLs) that are allowed to access your API
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",       # Your local React/Node dev server
+    "http://127.0.0.1:3000",       # Another common local variation
+    # Add your production frontend domain here later (e.g., "https://yourfrontend.com")
+]
 
 # Application definition
 
@@ -85,6 +93,12 @@ INSTALLED_APPS = [
 ]
 
 EXETERNAL_APPS = [
+    
+    # Third-party packages
+    'rest_framework',      # For building the API
+    'corsheaders',         # For handling Cross-Origin requests
+
+    # My apps
     'core',
     'users',
 ]
@@ -101,7 +115,34 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# 1. CORS Middleware MUST be first
+MIDDLEWARE.insert(0, 'corsheaders.middleware.CorsMiddleware')
+
+if not DEBUG:
+    # Whitenoise for static files (recommended)
+    MIDDLEWARE+=['whitenoise.middleware.WhiteNoiseMiddleware']
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+    # Security settings for production
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
+
 ROOT_URLCONF = 'api_football.urls'
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer', # Optional: for the browser interface
+    ],
+    # Example default permission: allow read access to anyone, but require login for write/edit
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny', 
+    ]
+}
 
 TEMPLATES = [
     {
