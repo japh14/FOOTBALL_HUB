@@ -20,9 +20,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # The directory UP one level from BASE_DIR (i.e., the project root /root/)
 PROJECT_ROOT_DIR = BASE_DIR.parent
 
-print(f'Info: BASE_DIR is {BASE_DIR}')
-print(f'Info: PROJECT_ROOT_DIR is {PROJECT_ROOT_DIR}')
-
 # Loading .env file based on environment
 load_dotenv(dotenv_path=BASE_DIR / '.env')
 
@@ -141,6 +138,7 @@ REST_FRAMEWORK = {
     # Example default permission: allow read access to anyone, but require login for write/edit
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny', 
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ]
 }
 
