@@ -1,0 +1,28 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Git
+.git
+.gitignore
+
+# Virtual environments
+venv/
+env/
+.venv
+
+# Logs
+*.log
+
+# Env files (do not copy secrets into the image)
+.env
+.env.*
+
+# Docker-related
+docker-compose.yml
+.dockerignore
+.git/
+
+# Local data
+media/
+staticfiles/

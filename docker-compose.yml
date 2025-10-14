@@ -35,7 +35,7 @@ services:
       db:
         condition: service_healthy
     environment:
-      - DJANGO_ENV=development
+      - ENVIRONMENT=dev
 
   nginx:
     image: nginx:alpine

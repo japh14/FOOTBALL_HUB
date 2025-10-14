@@ -21,11 +21,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT_DIR = BASE_DIR.parent
 
 # Loading .env file based on environment
-load_dotenv(dotenv_path=BASE_DIR / '.env')
+load_dotenv(dotenv_path=PROJECT_ROOT_DIR / '.env')
 
-environ = os.getenv('environment', 'dev')
+# Determine the environment: 'prod', 'dev', or 'local' (default)
+environ = os.getenv('ENVIRONMENT', 'local')
+
+print(f'Info: Loading settings for environment: {environ}')
 if environ == 'prod':
     load_dotenv(dotenv_path=PROJECT_ROOT_DIR / '.env.prod', override=True)
+elif environ == 'local':
+    load_dotenv(dotenv_path=PROJECT_ROOT_DIR / '.env.local', override=True)
 else:
     load_dotenv(dotenv_path=PROJECT_ROOT_DIR / '.env.dev', override=True)
 
