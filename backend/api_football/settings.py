@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 from dotenv import load_dotenv
 import os
 
@@ -98,6 +99,7 @@ EXETERNAL_APPS = [
     
     # Third-party packages
     'rest_framework',      # For building the API
+    'rest_framework_simplejwt', # For JWT Authentication
     'corsheaders',         # For handling Cross-Origin requests
 
     # My apps
@@ -109,6 +111,7 @@ INSTALLED_APPS+=EXETERNAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -135,16 +138,28 @@ if not DEBUG:
 
 ROOT_URLCONF = 'api_football.urls'
 
+# REST Framework Configuration
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer', # Optional: for the browser interface
     ],
     # Example default permission: allow read access to anyone, but require login for write/edit
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny', 
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.AllowAny', # Allow All
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly', # Auth for write, anonymous read
+        'rest_framework.permissions.IsAuthenticated',  # default: all endpoints require auth
     ]
+}
+
+# JWT Settings
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
 TEMPLATES = [

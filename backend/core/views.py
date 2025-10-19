@@ -9,4 +9,4 @@ class StatusView(View):
 
 
 def home(request):
-    return HttpResponse("Welcome to the Home Page")
+    return HttpResponse("Welcome to the Home Page - Football Hub API (nginx reload test)")
