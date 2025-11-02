@@ -6,7 +6,7 @@ from football_data.models import Country
 class Command(BaseCommand):
     help = "Seed Country database table with API-Football data"
 
-    def handle(self, *args, **kwargs):
+    def handle(self, *args, **options):
         client = APIFootballClient()
         countries_data = client.request(endpoint='countries')
         countries_df = client.normalize_countries(countries_data)

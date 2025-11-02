@@ -1,7 +1,5 @@
 from django.db import models
 
-from django.db import models
-
 # ------------------------
 # Country Model
 # ------------------------
@@ -22,6 +20,8 @@ class Country(models.Model):
     )
 
     class Meta:
+        db_table = 'country'
+        verbose_name = "Country"
         verbose_name_plural = "Countries"
         ordering = ["name"]
 
@@ -53,7 +53,7 @@ class League(models.Model):
 
     # Foreign key to Country
     country = models.ForeignKey(
-        Country,               # direct reference, works even with custom PK
+        to=Country,               # direct reference, works even with custom PK
         to_field='code',       # link to Country.code instead of id
         db_column='country_code',
         on_delete=models.CASCADE,
@@ -69,19 +69,34 @@ class League(models.Model):
 
     def __str__(self):
         # safer string representation in case country is None
-        country_code = self.country.code if self.country else 'N/A'
-        return f"{self.name} ({country_code})"
+        country_name = self.country.name if self.country else 'N/A'
+        return f"{self.name} ({country_name})"
 
-
-
+# ------------------------
+# Team Model
+# ------------------------
 class Team(models.Model):
-    id = models.IntegerField(primary_key=True)  # Custom primary key from API or data source
-    name = models.CharField(max_length=100, unique=True)
-    code = models.CharField(max_length=10, unique=True, blank=True, null=True)
+    id = models.IntegerField(        
+        primary_key=True,
+        help_text="Unique team ID from API"
+    )  
+
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        help_text="Name of the team"
+        )
+    code = models.CharField(
+        max_length=10,
+        # unique=True,
+        blank=True,
+        null=True,
+        help_text="Team code (if available)"
+        )
 
     # Foreign keys
     country = models.ForeignKey(
-        'football_data.Country',
+        to='football_data.Country',
         to_field='code',              # Links to Country.code
         db_column='country_code',
         on_delete=models.CASCADE,
@@ -89,7 +104,7 @@ class Team(models.Model):
     )
 
     league = models.ForeignKey(
-        'football_data.League',
+        to='football_data.League',
         to_field='id',                # Links to League.id (custom PK)
         db_column='league_id',
         on_delete=models.CASCADE,
@@ -102,7 +117,7 @@ class Team(models.Model):
     logo = models.URLField(blank=True, null=True)
 
     # Venue details
-    venue_id = models.IntegerField(unique=True)
+    venue_id = models.IntegerField(unique=True, null=True, blank=True)
     venue_name = models.CharField(max_length=100)
     venue_city = models.CharField(max_length=100, blank=True, null=True)
     venue_capacity = models.IntegerField(blank=True, null=True)
@@ -114,6 +129,7 @@ class Team(models.Model):
         db_table = 'team'
         verbose_name = 'Team'
         verbose_name_plural = 'Teams'
+        ordering = ['name']
 
     def __str__(self):
-        return f"{self.name} ({self.country.code})"
+        return f"{self.name} (L: {self.league.name}, C: {self.country.code})"

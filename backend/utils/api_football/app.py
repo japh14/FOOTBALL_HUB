@@ -1,33 +1,31 @@
 import requests
 import os
 import pandas as pd
+import numpy as np
 
-from typing import Dict, Any
+from typing import Any
 from dotenv import load_dotenv
-from pprint import pprint
 from datetime import datetime
-
-load_dotenv()
-API_KEY = os.getenv("API_KEY")
-
-base_url = "https://v3.football.api-sports.io/"
-full_url = f"{base_url}status"
-
-headers = {
-    "x-apisports-key": API_KEY,
-    "x-rapidapi-host": "v3.football.api-sports.io"
-}
-
-# response = requests.get(full_url, headers=headers)
-# data = response.json()
-# pprint(data)
 
 
 class APIFootballClient:
+    """_summary_
+    This class handles requests to the API-Football service. 
+    It retrieves and normalizes data for countries, leagues, teams, and players.
+
+
+    Returns:
+        _type_: _description_
+    """
     load_dotenv()
 
     base_url = "https://v3.football.api-sports.io/"
     
+    league_ids = os.getenv("LEAGUE_IDS", "39").split(",")    
+    league_ids = list(map(lambda x: int(x.strip()), league_ids)) # convert to list of ints
+
+    default_season = int(os.getenv("DEFAULT_SEASON", "2023"))
+
     __api_key = os.getenv("API_KEY") 
     __headers = {
             "x-apisports-key": __api_key,
@@ -35,16 +33,28 @@ class APIFootballClient:
     }
 
     def __init__(self):
+        """Initialize the APIFootballClient"""
         pass
 
     def __str__(self):
-        return f"APIFootballClient(url={self.base_url})"
+        """String representation of the APIFootballClient"""
+        return f"APIFootballClient(url={self.base_url})\n Default League IDs: {self.league_ids}, Default Season: {self.default_season}"
     
     def __repr__(self):
+        """Official string representation of the APIFootballClient"""
         pass
 
     @classmethod
-    def request(cls, endpoint: str='status', params: Any=None):
+    def request(cls, endpoint: str='status', params: Any=None)-> dict[str, Any]:
+        """_summary_
+
+        Args:
+            endpoint (str, optional): _description_. Defaults to 'status'.
+            params (Any, optional): _description_. Defaults to None.
+
+        Returns:
+            dict[str,Any]: _description_
+        """
         url = f"{cls.base_url}{endpoint}"
         try:
             response = requests.get(url, headers=cls.__headers, params=params)
@@ -65,6 +75,9 @@ class APIFootballClient:
     def normalize_countries(self, countries_data: dict[str, Any]) -> pd.DataFrame:
         countries_data_list = countries_data.get('response', [])
         countries_df = pd.json_normalize(countries_data_list)
+        # TODO: Clean up data frame columns if necessary
+        countries_df.replace({pd.NA: None}, inplace=True) # replace pandas NA with None
+        countries_df.replace({np.nan: None}, inplace=True) # replace numpy nan with None
         return countries_df    
     
     def request_leagues(self, league_id: [int,Any]=None) -> dict[str, Any]: # type: ignore
@@ -75,7 +88,7 @@ class APIFootballClient:
         return self.request(endpoint, params=params)
     
     def normalize_leagues(self, leagues_data: dict[str, Any]) -> pd.DataFrame:
-        leagues_data_list = leagues_data.get('response', [])
+        leagues_data_list = leagues_data.get('response', []) # get response list to normalize specific data instead of whole dict
         response_leagues = []
         for item in leagues_data_list:
             league_info = item.get('league', {})
@@ -90,9 +103,12 @@ class APIFootballClient:
             response_leagues.append(combined_info)
         
         leagues_df = pd.json_normalize(response_leagues)
+        # TODO: Clean up data frame columns if necessary
+        leagues_df.replace({pd.NA: None}, inplace=True) # replace pandas NA with None
+        leagues_df.replace({np.nan: None}, inplace=True) # replace numpy nan with None
         return leagues_df
     
-    def request_team(self, league_id: int, season: int=2023) -> dict[str, Any]:
+    def request_team(self, league_id: int, season: int=default_season) -> dict[str, Any]:
         endpoint = "teams"
         params = {
             "league": league_id,
@@ -100,7 +116,7 @@ class APIFootballClient:
         }
         return self.request(endpoint, params=params)
     
-    def request_teams(self, league_ids: list[int], season: int=2023) -> dict[str, Any]:
+    def request_teams(self, league_ids: list[int]=league_ids, season: int=default_season) -> dict[str, Any]:
         all_teams = {}
         for league_id in league_ids:
             teams_data = self.request_team(league_id, season)
@@ -128,10 +144,13 @@ class APIFootballClient:
                 all_teams_list.append(combined_info)
         
         teams_df = pd.json_normalize(all_teams_list)
+        # TODO: Clean up data frame columns if necessary
+        teams_df.replace({pd.NA: None}, inplace=True) # replace pandas NA with None
+        teams_df.replace({np.nan: None}, inplace=True) # replace numpy nan with None
         return teams_df
     
 
-    def request_player(self, league_id: int, page: int=1, season: int=2023) -> dict[str, Any]:
+    def request_player(self, league_id: int, page: int=1, season: int=default_season) -> dict[str, Any]:
         endpoint = "players"
         params = {
             "league": league_id,
@@ -140,7 +159,7 @@ class APIFootballClient:
         }
         return self.request(endpoint, params=params)
     
-    def request_players(self, league_id: int, max_pages:int =5, season: int=2023,) -> dict[int, dict[str, Any]]:
+    def request_players(self, league_id: int, max_pages:int =5, season: int=default_season,) -> dict[int, dict[str, Any]]:
         all_players = {}
 
         first_page_data = self.request_player(league_id, page=1, season=season)
@@ -185,7 +204,16 @@ class APIFootballClient:
                     all_players_list.append(combined_info)
         
         players_df = pd.json_normalize(all_players_list)
+
+        # TODO: Clean up data frame columns if necessary
+        players_df.replace({pd.NA: None}, inplace=True) # replace pandas NA with None
+        players_df.replace({np.nan: None}, inplace=True) # replace numpy nan with None
         return players_df
 
     def normalise_all_players(self):
         pass
+
+
+if __name__ == '__main__':
+    client = APIFootballClient()
+    print(client)

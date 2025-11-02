@@ -11,11 +11,11 @@ class CountryAdmin(admin.ModelAdmin):
 @admin.register(League)
 class LeagueAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'country')
-    search_fields = ('name',)
+    search_fields = ('name','type','country__name')
     list_filter = ('country',)
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'league', 'country')
-    search_fields = ('name',)
+    list_display = ('id', 'name', 'league')
+    search_fields = ('name','country__name','league__name')
     list_filter = ('league', 'country')

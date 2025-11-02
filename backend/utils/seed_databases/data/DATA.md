@@ -17,9 +17,9 @@ Each **league ID** is unique across the API and remains consistent across all se
 | Ranking | Country | League | League ID |
 |----------|----------|---------|------------|
 | 1 | 🏴 England | **Premier League** | **39** |
-| 2 | 🇮🇹 Italy | **Serie A** | **71** |
+| 2 | 🇮🇹 Italy | **Serie A** | **135** |
 | 3 | 🇪🇸 Spain | **La Liga** | **140** |
-| 4 | 🇩🇪 Germany | **Bundesliga** | **218** |
+| 4 | 🇩🇪 Germany | **Bundesliga** | **78** |
 | 5 | 🇫🇷 France | **Ligue 1** | **61** |
 
 
