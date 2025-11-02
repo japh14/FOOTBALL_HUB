@@ -1,6 +1,12 @@
 from pathlib import Path
 import json
 import pandas as pd
+import os, sys
+
+
+# Manually set path to your project root
+project_root = Path(os.getcwd())
+sys.path.append(str(project_root))
 
 from backend.utils.api_football.app import APIFootballClient
 
@@ -44,17 +50,31 @@ url = 'https://v3.football.api-sports.io/'
 if __name__ == '__main__':
     client = APIFootballClient()
     
+    # test GET countries
     # countries_data_api = client.request(endpoint='countries')
     # countries_df_api = client.normalize_countries(countries_data_api)
     # print(f'Countries from API:\n{countries_df_api.head()}')
     
+    # test GET leagues
     # leagues_data_api = client.request(endpoint='leagues')
     # leagues_df_api = client.normalize_leagues(leagues_data_api)
     # print(f'Leagues from API:\n{leagues_df_api.head()}')
 
-    league_ids = [39,71,140,218,61]
-
+    # test GET teams
+    # league_ids = [39,71,140,218,61]
     # teams_data_api = client.request_teams(league_ids=league_ids, season=2023)
     # teams_df_api = client.normalize_teams(teams_data_api)
     # teams_df_api.to_csv(dir_path / 'teams_api.csv', index=False)
     # print(f'Teams from API:\n{teams_df_api.head()}')
+
+    # test GET (some) players, by league and pages
+    league_ids = [39, ]  # Premier League only for testing
+    combine_players_df_api = pd.DataFrame()
+
+    for league_id in league_ids:
+        players_data_api = client.request_players(league_id=league_id, season=2023, max_pages=2)
+        players_df_api = client.normalize_players(players_data_api)
+        combine_players_df_api = pd.concat([combine_players_df_api, players_df_api], ignore_index=True) # combine all leagues into one df
+    
+    players_df_api.to_csv(dir_path / 'players_api.csv', index=False)
+    print(f'Players from API:\n{combine_players_df_api.head()}')
