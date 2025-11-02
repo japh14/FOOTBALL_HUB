@@ -222,3 +222,5 @@ certbot/
 *.log
 .venv/
 >>>>>>> d5fab35 (Initial commit)
+
+.~lock.*#

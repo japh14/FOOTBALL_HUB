@@ -105,6 +105,7 @@ EXETERNAL_APPS = [
     # My apps
     'core',
     'users',
+    'football_data',
 ]
 
 INSTALLED_APPS+=EXETERNAL_APPS
