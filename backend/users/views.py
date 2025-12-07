@@ -11,7 +11,7 @@ class HelloUserView(APIView):
     def get(self, request):
         user = request.user  # Get the authenticated user
         return Response({
-            'message': f'Hello, {user.username}!',
+            'message': f'Hello, {user.first_name} {user.last_name}!',
             'email': user.email,
             'feedback': f'Congratulations {user.username}, you have successfully accessed your protected endpoint! Now you can start building more complex features.'
         })

@@ -25,6 +25,7 @@ class APIFootballClient:
     league_ids = list(map(lambda x: int(x.strip()), league_ids)) # convert to list of ints
 
     default_season = int(os.getenv("DEFAULT_SEASON", "2023"))
+    default_max_page = int(os.getenv("DEFAULT_MAX_PAGE", 5))
 
     __api_key = os.getenv("API_KEY") 
     __headers = {
@@ -159,12 +160,14 @@ class APIFootballClient:
         }
         return self.request(endpoint, params=params)
     
-    def request_players(self, league_id: int, max_pages:int =5, season: int=default_season,) -> dict[int, dict[str, Any]]:
+    def request_players(self, league_id: int, max_pages:int =3, season: int=default_season,) -> dict[int, dict[str, Any]]:
         all_players = {}
 
         first_page_data = self.request_player(league_id, page=1, season=season)
         total_pages = min(first_page_data.get('paging', {}).get('total', 1), max_pages) # Limit to max_pages for testing (and API call limits)
 
+        print(f'total pages for league {league_id}: {total_pages}')
+        
         all_players[f'{league_id}_{1}'] = first_page_data
         for page in range(2, total_pages + 1):
             players_data = self.request_player(league_id, page=page, season=season)
@@ -178,16 +181,23 @@ class APIFootballClient:
             for player in players_list:
                 player_info = player.get('player', {})
 
+                # revise player height & weight  from string to float (for example from 174 cm to 174.00
+                # or 60 kg to 60.00)        
                 # revise player_info keys to avoid conflict
                 try:
+                    player_info['height'] = float(player_info.get('height','').split(' ')[0])
+                    player_info['weight'] = float(player_info.get('weight','').split(' ')[0])
+
                     birth_date = player_info.get('birth', {}).get('date', None)
                     if birth_date:
                         # Convert to date object
                         player_info['birth_date'] = datetime.strptime(birth_date, "%Y-%m-%d").date()
                     else:
                         player_info['birth_date'] = None
-                except ValueError:
+                except (ValueError , TypeError, AttributeError):
                     player_info['birth_date'] = None
+                    player_info['height'] = None
+                    player_info['weight'] = None
 
                 player_info['birth_place'] = player_info.get('birth', {}).get('place', None)
                 player_info['birth_country'] = player_info.get('birth', {}).get('country', None) # pop last item remove nested dict
@@ -200,8 +210,8 @@ class APIFootballClient:
                     league_info = {'league_id': stats.get('league',{}).get('id', None)}  # Simplify to only league_id
                     stats_info = {'position': stats.get('games', {}).get('position', {})} # Simplify to only position
 
-                    combined_info = {**player_info, **team_info, **league_info, **stats_info}
-                    all_players_list.append(combined_info)
+                combined_info = {**player_info, **team_info, **league_info, **stats_info}
+                all_players_list.append(combined_info)
         
         players_df = pd.json_normalize(all_players_list)
 

@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+echo ">>> Creating new database migrations (if model changes exist)..."
+python manage.py makemigrations
+
 echo ">>> Running database migrations..."
 python manage.py migrate --noinput
 

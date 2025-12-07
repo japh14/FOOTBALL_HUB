@@ -72,9 +72,9 @@ if __name__ == '__main__':
     combine_players_df_api = pd.DataFrame()
 
     for league_id in league_ids:
-        players_data_api = client.request_players(league_id=league_id, season=2023, max_pages=2)
+        players_data_api = client.request_players(league_id=league_id, season=2023, max_pages=25)
         players_df_api = client.normalize_players(players_data_api)
         combine_players_df_api = pd.concat([combine_players_df_api, players_df_api], ignore_index=True) # combine all leagues into one df
     
-    players_df_api.to_csv(dir_path / 'players_api.csv', index=False)
+    combine_players_df_api.to_csv(dir_path / 'players_api4.csv', index=False)
     print(f'Players from API:\n{combine_players_df_api.head()}')

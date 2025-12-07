@@ -10,9 +10,9 @@ Get the list of available leagues and cups.
 
 Each **league ID** is unique across the API and remains consistent across all seasons.
 
-> **Note:** For this project, only the **Top 5 European Football Leagues** are used.
+> **Note:** For this project, only the **Top 20 European Football Leagues** are used.
 
-### Top 5 European Football Leagues
+### Top 20 European Football Leagues
 
 | Ranking | Country | League | League ID |
 |----------|----------|---------|------------|
@@ -21,14 +21,27 @@ Each **league ID** is unique across the API and remains consistent across all se
 | 3 | 🇪🇸 Spain | **La Liga** | **140** |
 | 4 | 🇩🇪 Germany | **Bundesliga** | **78** |
 | 5 | 🇫🇷 France | **Ligue 1** | **61** |
-
-
+| 6 | 🇳🇱 Netherlands | Eredivisie | 88 |
+| 7 | 🇵🇹 Portugal | Primeira Liga | 94 |
+| 8 | 🇧🇪 Belgium | Jupiler Pro League | 144 |
+| 9 | 🇹🇷 Turkey | Süper Lig | 203 |
+| 10 | 🇨🇿 Czech Republic | Czech First League | - |
+| 11 | 🇬🇷 Greece | Stoiximan Super League | - |
+| 12 | 🇵🇱 Poland | Ekstraklasa | - |
+| 13 | 🇳🇴 Norway | Eliteserien | - |
+| 14 | 🇩🇰 Denmark | Danish Superliga | - |
+| 15 | 🇨🇭 Switzerland | Swiss Super League | - |
+| 16 | 🇦🇹 Austria | Austrian Bundesliga | - |
+| 17 | 🇨🇾 Cyprus | Cyprus First Division | - |
+| 18 | 🏴 Scotland | Scottish Premiership | - |
+| 19 | 🇸🇪 Sweden | Allsvenskan | - |
+| 20 | 🇮🇱 Israel | Israeli Premier League | - |
 
 ---
 
 # ⚽ Teams
 
-Retrieve the list of available teams — limited to the **Top 5 European Football Leagues**.
+Retrieve the list of available teams — limited to the **Top 20 European Football Leagues**.
 
 Data is restricted to a specific season, based on the free tier of [API-Football](https://www.api-football.com/).
 

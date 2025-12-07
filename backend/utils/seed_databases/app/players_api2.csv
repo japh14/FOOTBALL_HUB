@@ -1,0 +1,61 @@
+id,name,firstname,lastname,age,nationality,height,weight,injured,photo,birth_date,birth_place,birth_country,team_id,league_id,position
+54,Diego Costa,Diego,da Silva Costa,37,Spain,188.0,83.0,False,https://media.api-sports.io/football/players/54.png,1988-10-07,Lagarto,Brazil,39,39,Attacker
+178,Lucas Moura,Lucas,Rodrigues Moura da Silva,33,Brazil,172.0,72.0,False,https://media.api-sports.io/football/players/178.png,1992-08-13,São Paulo,Brazil,47,39,Attacker
+297,A. Oxlade-Chamberlain,Alexander Mark David,Oxlade-Chamberlain,32,England,180.0,70.0,False,https://media.api-sports.io/football/players/297.png,1993-08-15,Portsmouth,England,40,39,Midfielder
+888,P. Jones,Phil Anthony,Jones,31,England,180.0,71.0,False,https://media.api-sports.io/football/players/888.png,1992-02-21,Preston,England,33,39,Defender
+900,J. Lingard,Jesse Ellis,Lingard,33,England,175.0,62.0,False,https://media.api-sports.io/football/players/900.png,1992-12-15,Warrington,England,65,39,Midfielder
+2473,M. Lanzini,Manuel,Lanzini,32,Argentina,167.0,59.0,False,https://media.api-sports.io/football/players/2473.png,1993-02-15,Ituzaingó,Argentina,48,39,Midfielder
+2677,João Moutinho,João Filipe,Iria Santos Moutinho,39,Portugal,170.0,61.0,False,https://media.api-sports.io/football/players/2677.png,1986-09-08,Portimão,Portugal,39,39,Midfielder
+18753,Adama Traoré,Adama,Traoré Diarra,29,Spain,178.0,86.0,False,https://media.api-sports.io/football/players/18753.png,1996-01-25,L'Hospitalet de Llobregat,Spain,36,39,Attacker
+18762,T. Davies,Thomas,Davies,27,England,180.0,70.0,False,https://media.api-sports.io/football/players/18762.png,1998-06-30,Liverpool,England,62,39,Midfielder
+18849,J. McArthur,James,McFarlane McArthur,36,Scotland,178.0,75.0,False,https://media.api-sports.io/football/players/18849.png,1987-10-07,Glasgow,Scotland,52,39,Midfielder
+18852,L. Milivojević,Luka,Milivojević,34,Serbia,186.0,80.0,False,https://media.api-sports.io/football/players/18852.png,1991-04-07,Kragujevac,Yugoslavia,52,39,Midfielder
+18854,A. Townsend,Andros Darryl,Townsend,34,England,181.0,77.0,False,https://media.api-sports.io/football/players/18854.png,1991-07-16,London,England,1359,39,Attacker
+18858,A. Begović,Asmir,Begović,38,Bosnia and Herzegovina,199.0,101.0,False,https://media.api-sports.io/football/players/18858.png,1987-06-20,Trebinje,Bosnia and Herzegovina,45,39,Goalkeeper
+18878,J. Stanislas,Felix Junior,Stanislas,34,England,183.0,76.0,False,https://media.api-sports.io/football/players/18878.png,1989-11-26,Kidbrooke,England,35,39,Midfielder
+18891,C. Clark,Ciaran,Clark,35,Republic of Ireland,185.0,88.0,False,https://media.api-sports.io/football/players/18891.png,1989-09-26,London,England,62,39,Defender
+19174,J. Steer,Jed John,Steer,33,England,183.0,80.0,False,https://media.api-sports.io/football/players/19174.png,1992-09-23,Norwich,England,66,39,Goalkeeper
+19299,J. Colback,Jack Raymond,Colback,36,England,177.0,77.0,False,https://media.api-sports.io/football/players/19299.png,1989-10-24,Killingworth,England,65,39,Midfielder
+19842,L. Taylor,Lyle James Alfred,Taylor,35,Montserrat,188.0,75.0,False,https://media.api-sports.io/football/players/19842.png,1990-03-29,Greenwich,England,65,39,Attacker
+130419,M. Longstaff,Matthew Ben,Longstaff,25,England,170.0,70.0,False,https://media.api-sports.io/football/players/130419.png,2000-03-21,Rotherham,England,34,39,Midfielder
+181822,E. Wady,Ethan James,Wady,21,USA,,,False,https://media.api-sports.io/football/players/181822.png,,San Jose,USA,49,39,Goalkeeper
+84,Wesley Moraes,Wesley,Moraes Ferreira da Silva,29,Brazil,191.0,93.0,False,https://media.api-sports.io/football/players/84.png,1996-11-24,Juiz de Fora,Brazil,66,39,Attacker
+285,K. Hoever,Ki-Jana Delano,Hoever,23,Netherlands,183.0,65.0,False,https://media.api-sports.io/football/players/285.png,2002-01-18,Amsterdam,Netherlands,39,39,Defender
+378,Alex Telles,Alex,Nicolao Telles,33,Brazil,181.0,71.0,False,https://media.api-sports.io/football/players/378.png,1992-12-15,Caxias do Sul,Brazil,33,39,Defender
+882,David de Gea,David,de Gea Quintana,35,Spain,192.0,76.0,False,https://media.api-sports.io/football/players/882.png,1990-11-07,Madrid,Spain,33,39,Goalkeeper
+1914,M. Sanson,Morgan Stéphane,Sanson,31,France,180.0,73.0,False,https://media.api-sports.io/football/players/1914.png,1994-08-18,Saint-Doulchard,France,66,39,Midfielder
+18747,R. Giles,Ryan,Giles,25,England,179.0,72.0,False,https://media.api-sports.io/football/players/18747.png,2000-01-26,Telford,England,1359,39,Defender
+27778,B. Bolla,Bendegúz Bence,Bolla,26,Hungary,180.0,72.0,False,https://media.api-sports.io/football/players/27778.png,1999-11-22,Székesfehérvár,Hungary,39,39,Defender
+138934,A. Pressley,Aaron Alex,Pressley,24,Scotland,194.0,75.0,False,https://media.api-sports.io/football/players/138934.png,2001-11-07,Edinburgh,Scotland,55,39,Attacker
+140947,I. Kaboré,Issa,Kaboré,24,Burkina Faso,180.0,77.0,False,https://media.api-sports.io/football/players/140947.png,2001-05-12,Bobo-Dioulasso,Burkina Faso,1359,39,Defender
+152980,Remmi Eugene Savage,Remmi Eugene,Savage,24,England,,,False,https://media.api-sports.io/football/players/152980.png,,,England,34,39,Defender
+153434,W. Fish,William Thomas,Fish,22,England,,,False,https://media.api-sports.io/football/players/153434.png,,,England,33,39,Defender
+162189,M. Bidstrup,Mads,Bidstrup,24,Denmark,175.0,75.0,False,https://media.api-sports.io/football/players/162189.png,2001-02-25,Køge,Denmark,55,39,Midfielder
+197448,Yan Couto,Yan,Bueno Couto,23,Brazil,168.0,60.0,False,https://media.api-sports.io/football/players/197448.png,2002-06-03,Curitiba,Brazil,50,39,Defender
+278075,C. Cîrjan,Cătălin Ionuț,Cîrjan,23,Romania,174.0,60.0,False,https://media.api-sports.io/football/players/278075.png,2002-12-01,Domnești,Romania,42,39,Midfielder
+278088,C. Rushworth,Carl Andrew,Rushworth,24,England,188.0,86.0,False,https://media.api-sports.io/football/players/278088.png,2001-07-02,Halifax,England,51,39,Goalkeeper
+284062,K. Edwards,Khayon,Edwards,22,England,,,False,https://media.api-sports.io/football/players/284062.png,,,England,42,39,Attacker
+284248,M. Frauendorf,Melkamu Benjamin Daniel,Frauendorf,21,Germany,,,False,https://media.api-sports.io/football/players/284248.png,,,Ethiopia,40,39,Midfielder
+284446,F. Potts,Freddie,Potts,22,England,,,False,https://media.api-sports.io/football/players/284446.png,,London,England,48,39,Midfielder
+284466,C. Patino,Charlie Michael,Patino,22,England,182.0,75.0,False,https://media.api-sports.io/football/players/284466.png,2003-10-17,,England,42,39,Midfielder
+291022,Joshua Keeley,Joshua,Keeley,22,Republic of Ireland,,,False,https://media.api-sports.io/football/players/291022.png,,,Republic of Ireland,47,39,Goalkeeper
+2276,J. Cumming,James Andrew,Cumming,26,England,186.0,79.0,False,https://media.api-sports.io/football/players/2276.png,1999-09-04,Winchester,England,49,39,Goalkeeper
+18751,Ivan Cavaleiro,Ivan Ricardo,Neves Abreu Cavaleiro,32,Portugal,175.0,72.0,False,https://media.api-sports.io/football/players/18751.png,1993-10-18,Vila Franca de Xira,Portugal,36,39,Attacker
+64167,G. Słonina,Gabriel Paweł,Słonina,21,USA,193.0,88.0,False,https://media.api-sports.io/football/players/64167.png,2004-05-15,Addison,USA,49,39,Goalkeeper
+138777,F. Anjorin,Faustino Adebola Rasheed,Anjorin,24,England,185.0,73.0,False,https://media.api-sports.io/football/players/138777.png,2001-11-23,Poole,England,49,39,Midfielder
+162590,T. Morton,Tyler Scott,Morton,23,England,182.0,75.0,False,https://media.api-sports.io/football/players/162590.png,2002-10-31,Wallasey,England,7196,39,Midfielder
+278086,I. Odutayo,Idris Adewale,Olarewaju Odutayo,23,England,,,False,https://media.api-sports.io/football/players/278086.png,,Lambeth,England,36,39,Defender
+282130,Logan Pye,Logan,Pye,22,England,,,False,https://media.api-sports.io/football/players/282130.png,,,England,33,39,Defender
+284305,Jamie Miley,Jamie,Miley,21,England,,,False,https://media.api-sports.io/football/players/284305.png,,Gateshead,England,34,39,Midfielder
+284471,S. Parkes,Stefan Charles Earl,Parkes,21,England,,,False,https://media.api-sports.io/football/players/284471.png,,,England,36,39,Defender
+284559,Alexander Paul Borto,Alexander Paul,Borto,22,USA,188.0,80.0,False,https://media.api-sports.io/football/players/284559.png,2003-11-06,,USA,36,39,Goalkeeper
+288055,Ângelo,Ângelo Gabriel,Borges Damaceno,21,Brazil,180.0,78.0,False,https://media.api-sports.io/football/players/288055.png,2004-12-21,,Brazil,49,39,Attacker
+298129,M. Boateng,Malachi,Boateng,23,England,,,False,https://media.api-sports.io/football/players/298129.png,,London,England,52,39,Midfielder
+303016,M. Oyedele,Maximillian,Oyedele,21,Poland,180.0,70.0,False,https://media.api-sports.io/football/players/303016.png,2004-11-07,Manchester,England,33,39,Midfielder
+327728,Delano McCoy-Splatt\t,Delano,McCoy-Splatt,21,Jamaica,,,False,https://media.api-sports.io/football/players/327728.png,,,England,36,39,Midfielder
+330636,Sonny Aljofree,Sonny,Aljofree,21,England,,,False,https://media.api-sports.io/football/players/330636.png,,Plymouth,England,33,39,Defender
+359386,M. Godo,Becket Fabrice-Martial,Godo,22,England,169.0,61.0,False,https://media.api-sports.io/football/players/359386.png,2003-03-14,London,England,36,39,Attacker
+363974,Z. Marsh,Zach,Marsh,20,England,176.0,60.0,False,https://media.api-sports.io/football/players/363974.png,2005-10-06,,England,52,39,Attacker
+378981,Elyh Harrison,Elyh,Harrison,19,England,,,False,https://media.api-sports.io/football/players/378981.png,,,England,33,39,Goalkeeper
+384981,S. Amissah,Samuel,Amissah,18,England,184.0,73.0,False,https://media.api-sports.io/football/players/384981.png,2007-03-07,,England,36,39,Defender
+404021,F. Marjoram,Finley,Marjoram,19,England,,,False,https://media.api-sports.io/football/players/404021.png,,,England,52,39,Midfielder
