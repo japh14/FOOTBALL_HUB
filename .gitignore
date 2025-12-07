@@ -224,3 +224,6 @@ certbot/
 >>>>>>> d5fab35 (Initial commit)
 
 .~lock.*#
+
+# Local files and dir
+_local_TESTING/
