@@ -25,12 +25,11 @@ PROJECT_ROOT_DIR = BASE_DIR.parent
 load_dotenv(dotenv_path=PROJECT_ROOT_DIR / '.env')
 
 # Determine the environment: 'prod', 'dev', or 'local' (default)
-environ = os.getenv('ENVIRONMENT', 'local')
+ENVIRON = os.getenv('ENVIRONMENT', 'local')
 
-print(f'Info: Loading settings for environment: {environ}')
-if environ == 'prod':
+if ENVIRON == 'prod':
     load_dotenv(dotenv_path=PROJECT_ROOT_DIR / '.env.prod', override=True)
-elif environ == 'local':
+elif ENVIRON == 'local':
     load_dotenv(dotenv_path=PROJECT_ROOT_DIR / '.env.local', override=True)
 else:
     load_dotenv(dotenv_path=PROJECT_ROOT_DIR / '.env.dev', override=True)
@@ -56,13 +55,6 @@ DB_PORT = os.environ.get('DATABASE_PORT', '5432')
 DB_USER = os.environ.get('DATABASE_USER', 'myuser')
 DB_PASS = os.environ.get('DATABASE_PASSWORD', 'mypassword')
 DB_NAME = os.environ.get('DATABASE_NAME', 'mydatabase')
-
-# Print loaded environment variables for verification
-print('Info: Loaded environment variables:')
-print(f'\tUsing settings for environment: {environ}')
-print(f'\tDebug mode: {"ON" if _DEBUG else "OFF"}')
-print(f'\tUsing database: {"PostgreSQL" if USE_POSTGRES else "SQLite"}')
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -256,3 +248,121 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# ========================= Logging Configuration =========================
+
+# Get Log Level from env, default to INFO
+LOG_LEVEL = os.environ.get("DJANGO_LOG_LEVEL", "INFO")
+
+# Get LOG_DIR from env, fallback to BASE_DIR/logs
+LOG_DIR = Path(os.environ.get("LOG_DIR", BASE_DIR / "logs"))
+LOG_DIR.mkdir(parents=True, exist_ok=True)  # ensure log directory exists
+
+# Logging Configuration
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,  # keep Django's default loggers
+
+    # =========================
+    # FORMATTERS
+    # =========================
+    "formatters": {
+        "verbose": {
+            "format": "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        },
+        "simple": {
+            "format": "[%(levelname)s] %(name)s: %(message)s"
+        },
+        "json": {
+            "format": '{"time": "%(asctime)s", "level": "%(levelname)s", "logger": "%(name)s", "message": "%(message)s"}'
+        },
+    },
+
+    # =========================
+    # HANDLERS
+    # =========================
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+        "file_api": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOG_DIR / "api.log",
+            "maxBytes": 5_000_000,
+            "backupCount": 5,
+            "formatter": "verbose",
+        },
+        "file_data": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOG_DIR / "data.log",
+            "maxBytes": 10_000_000,
+            "backupCount": 5,
+            "formatter": "verbose",
+        },
+        "file_celery": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOG_DIR / "celery.log",
+            "maxBytes": 10_000_000,
+            "backupCount": 5,
+            "formatter": "verbose",
+        },
+        "file_errors": {
+            "class": "logging.FileHandler",
+            "filename": LOG_DIR / "errors.log",
+            "formatter": "verbose",
+            "level": "ERROR",
+        },
+    },
+
+    # =========================
+    # ROOT LOGGER
+    # =========================
+    "root": {
+        "handlers": ["console"],
+        "level": LOG_LEVEL,  # use dynamic log level from env
+    },
+
+    # =========================
+    # CUSTOM LOGGERS
+    # =========================
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "WARNING",
+            "propagate": True,
+        },
+        "api": {
+            "handlers": ["console", "file_api"],
+            "level": LOG_LEVEL,
+            "propagate": False,
+        },
+        "data": {
+            "handlers": ["console", "file_data"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+        "celery": {
+            "handlers": ["console", "file_celery"],
+            "level": LOG_LEVEL,
+            "propagate": False,
+        },
+        "db": {
+            "handlers": ["console", "file_data"],
+            "level": LOG_LEVEL,
+            "propagate": False,
+        },
+        "errors": {
+            "handlers": ["file_errors", "console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "nginx": {
+            "handlers": ["console"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+    },
+}
