@@ -25,12 +25,11 @@ PROJECT_ROOT_DIR = BASE_DIR.parent
 load_dotenv(dotenv_path=PROJECT_ROOT_DIR / '.env')
 
 # Determine the environment: 'prod', 'dev', or 'local' (default)
-environ = os.getenv('ENVIRONMENT', 'local')
+ENVIRON = os.getenv('ENVIRONMENT', 'local')
 
-print(f'Info: Loading settings for environment: {environ}')
-if environ == 'prod':
+if ENVIRON == 'prod':
     load_dotenv(dotenv_path=PROJECT_ROOT_DIR / '.env.prod', override=True)
-elif environ == 'local':
+elif ENVIRON == 'local':
     load_dotenv(dotenv_path=PROJECT_ROOT_DIR / '.env.local', override=True)
 else:
     load_dotenv(dotenv_path=PROJECT_ROOT_DIR / '.env.dev', override=True)
@@ -56,13 +55,6 @@ DB_PORT = os.environ.get('DATABASE_PORT', '5432')
 DB_USER = os.environ.get('DATABASE_USER', 'myuser')
 DB_PASS = os.environ.get('DATABASE_PASSWORD', 'mypassword')
 DB_NAME = os.environ.get('DATABASE_NAME', 'mydatabase')
-
-# Print loaded environment variables for verification
-print('Info: Loaded environment variables:')
-print(f'\tUsing settings for environment: {environ}')
-print(f'\tDebug mode: {"ON" if _DEBUG else "OFF"}')
-print(f'\tUsing database: {"PostgreSQL" if USE_POSTGRES else "SQLite"}')
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
