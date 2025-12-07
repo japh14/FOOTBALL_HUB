@@ -256,3 +256,121 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# ========================= Logging Configuration =========================
+
+# Get Log Level from env, default to INFO
+LOG_LEVEL = os.environ.get("DJANGO_LOG_LEVEL", "INFO")
+
+# Get LOG_DIR from env, fallback to BASE_DIR/logs
+LOG_DIR = Path(os.environ.get("LOG_DIR", BASE_DIR / "logs"))
+LOG_DIR.mkdir(parents=True, exist_ok=True)  # ensure log directory exists
+
+# Logging Configuration
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,  # keep Django's default loggers
+
+    # =========================
+    # FORMATTERS
+    # =========================
+    "formatters": {
+        "verbose": {
+            "format": "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        },
+        "simple": {
+            "format": "[%(levelname)s] %(name)s: %(message)s"
+        },
+        "json": {
+            "format": '{"time": "%(asctime)s", "level": "%(levelname)s", "logger": "%(name)s", "message": "%(message)s"}'
+        },
+    },
+
+    # =========================
+    # HANDLERS
+    # =========================
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+        "file_api": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOG_DIR / "api.log",
+            "maxBytes": 5_000_000,
+            "backupCount": 5,
+            "formatter": "verbose",
+        },
+        "file_data": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOG_DIR / "data.log",
+            "maxBytes": 10_000_000,
+            "backupCount": 5,
+            "formatter": "verbose",
+        },
+        "file_celery": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOG_DIR / "celery.log",
+            "maxBytes": 10_000_000,
+            "backupCount": 5,
+            "formatter": "verbose",
+        },
+        "file_errors": {
+            "class": "logging.FileHandler",
+            "filename": LOG_DIR / "errors.log",
+            "formatter": "verbose",
+            "level": "ERROR",
+        },
+    },
+
+    # =========================
+    # ROOT LOGGER
+    # =========================
+    "root": {
+        "handlers": ["console"],
+        "level": LOG_LEVEL,  # use dynamic log level from env
+    },
+
+    # =========================
+    # CUSTOM LOGGERS
+    # =========================
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "WARNING",
+            "propagate": True,
+        },
+        "api": {
+            "handlers": ["console", "file_api"],
+            "level": LOG_LEVEL,
+            "propagate": False,
+        },
+        "data": {
+            "handlers": ["console", "file_data"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+        "celery": {
+            "handlers": ["console", "file_celery"],
+            "level": LOG_LEVEL,
+            "propagate": False,
+        },
+        "db": {
+            "handlers": ["console", "file_data"],
+            "level": LOG_LEVEL,
+            "propagate": False,
+        },
+        "errors": {
+            "handlers": ["file_errors", "console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "nginx": {
+            "handlers": ["console"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+    },
+}

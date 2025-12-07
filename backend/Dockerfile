@@ -28,7 +28,7 @@ RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 # Create directories for static and media files
-RUN mkdir -p /app/staticfiles /app/media
+RUN mkdir -p /app/staticfiles /app/media /app/logs
 
 # Default command (can be overridden in Compose)
 CMD ["gunicorn", "api_football.wsgi:application", \
